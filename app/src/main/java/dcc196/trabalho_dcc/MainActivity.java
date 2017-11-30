@@ -123,12 +123,12 @@ public class MainActivity extends AppCompatActivity {
                 if (p.getHoraEntrada() == null) {
                     p.setHoraEntrada(Calendar.getInstance().getTime());
                     Toast.makeText(getApplicationContext(), "HoraEntrada atualizada", Toast.LENGTH_SHORT).show();
-                } else if (p.getHoraSaída() == null) {
-                    p.setHoraSaída(Calendar.getInstance().getTime());
+                } else if (p.getHoraSaida() == null) {
+                    p.setHoraSaida(Calendar.getInstance().getTime());
                     Toast.makeText(getApplicationContext(), "HoraSaida atualizada", Toast.LENGTH_SHORT).show();
                 } else {
                     p.setHoraEntrada(null);
-                    p.setHoraSaída(null);
+                    p.setHoraSaida(null);
                     Toast.makeText(getApplicationContext(), "Horas de entrada e saidas resetadas", Toast.LENGTH_SHORT).show();
                 }
                 return true;

@@ -12,7 +12,7 @@ public class Participante implements Serializable {
     private String nomeCompleto;
     private String email;
     private Date horaEntrada;
-    private Date horaSaída;
+    private Date horaSaida;
 
     @Override
     public String toString() {
@@ -47,11 +47,11 @@ public class Participante implements Serializable {
         this.horaEntrada = horaEntrada;
     }
 
-    public Date getHoraSaída() {
-        return horaSaída;
+    public Date getHoraSaida() {
+        return horaSaida;
     }
 
-    public void setHoraSaída(Date horaSaída) {
-        this.horaSaída = horaSaída;
+    public void setHoraSaida(Date horaSaida) {
+        this.horaSaida = horaSaida;
     }
 }

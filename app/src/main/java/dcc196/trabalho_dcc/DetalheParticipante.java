@@ -27,13 +27,13 @@ public class DetalheParticipante extends AppCompatActivity {
 
         txtNome.setText(p.getNomeCompleto().toString());
         txtEmail.setText(p.getEmail().toString());
-        if (p.getHoraEntrada() != null && p.getHoraSaída() != null) {
+        if (p.getHoraEntrada() != null && p.getHoraSaida() != null) {
             horaEntrada.setText(p.getHoraEntrada().toString());
-            horaSaida.setText(p.getHoraSaída().toString());
-        } else if (p.getHoraEntrada() != null && p.getHoraSaída() == null)
+            horaSaida.setText(p.getHoraSaida().toString());
+        } else if (p.getHoraEntrada() != null && p.getHoraSaida() == null)
             horaEntrada.setText(p.getHoraEntrada().toString());
-        else if (p.getHoraEntrada() == null && p.getHoraSaída() != null)
-            horaSaida.setText(p.getHoraSaída().toString());
+        else if (p.getHoraEntrada() == null && p.getHoraSaida() != null)
+            horaSaida.setText(p.getHoraSaida().toString());
 
     }
 }
