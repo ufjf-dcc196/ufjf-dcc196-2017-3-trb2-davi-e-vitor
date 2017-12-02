@@ -7,7 +7,15 @@
     <TextView
         android:id="@+id/textview_titulo"
         android:layout_width="match_parent"
-        android:layout_height="35dp"
+        android:layout_height="50dp"
         android:layout_weight="0.04"
-        android:text="TextView" />
+        android:text="TextView"
+        android:textColor="@color/colorPrimary"
+        android:textColorHighlight="@color/colorPrimary"
+        android:textColorHint="@color/colorPrimary"
+        android:textColorLink="@color/colorPrimary"
+        android:textCursorDrawable="@color/colorPrimary"
+        android:textSize="18sp"
+        android:visibility="visible" />
+
 </LinearLayout>

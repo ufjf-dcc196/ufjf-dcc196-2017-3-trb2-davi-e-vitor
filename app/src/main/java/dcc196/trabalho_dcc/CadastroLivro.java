@@ -45,7 +45,6 @@ public class CadastroLivro extends AppCompatActivity {
                 livro.setAnoPlubicacao(campoAnoPubliicacao.getText().toString());
 
                 livroAdapter.inserir(livro);
-        //        lh.criar(livro);
 
                 Toast.makeText(getApplicationContext(), "Livro cadastrado", Toast.LENGTH_SHORT).show();
             }
