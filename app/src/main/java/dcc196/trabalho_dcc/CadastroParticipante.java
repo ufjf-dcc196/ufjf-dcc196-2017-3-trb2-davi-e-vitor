@@ -14,7 +14,7 @@ public class CadastroParticipante extends AppCompatActivity {
     private EditText edtNomeParticipante;
     private EditText edtEmailParticipante;
     private Button btnSalvarParticipante;
-    private ParticipanteHelper ph = ParticipanteHelper.getInstance();
+    //private ParticipanteHelper ph = ParticipanteHelper.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,7 +31,7 @@ public class CadastroParticipante extends AppCompatActivity {
                 Participante participante = new Participante();
                 participante.setNomeCompleto(edtNomeParticipante.getText().toString());
                 participante.setEmail(edtEmailParticipante.getText().toString());
-                ph.criar(participante);
+        //        ph.criar(participante);
                 Toast.makeText(getApplicationContext(), "Participante cadastrado", Toast.LENGTH_SHORT).show();
             }
         });

@@ -17,6 +17,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".CadastroLivro" />
+        <activity android:name=".DetalheLivro" />
+        <activity android:name=".DadosLivro" />
         <activity android:name=".CadastroReserva" />
         <activity android:name=".CadastroParticipante" />
         <activity android:name=".DetalheParticipante"></activity>

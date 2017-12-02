@@ -33,14 +33,14 @@ public class CadastroReserva extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cadastro_reserva);
 
-        ph = ParticipanteHelper.getInstance();
-        lh = LivroHelper.getInstance();
+        //ph = ParticipanteHelper.getInstance();
+        //lh = LivroHelper.getInstance();
 
         btnReservarLivro = (Button) findViewById(R.id.btnReservarLivro);
         autoCompleteParticipantes = (AutoCompleteTextView) findViewById(R.id.autoCompleteParticipantes);
         autoCompleteLivros = (AutoCompleteTextView) findViewById(R.id.autoCompleteLivros);
 
-        participantes = ParticipanteHelper.getInstance().listarParticipantes();
+        //participantes = ParticipanteHelper.getInstance().listarParticipantes();
         final ArrayAdapter<Participante> adpParticipante = new ArrayAdapter<>(this,
                 android.R.layout.simple_dropdown_item_1line, participantes);
         autoCompleteParticipantes.setAdapter(adpParticipante);

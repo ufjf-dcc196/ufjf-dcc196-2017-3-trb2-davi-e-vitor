@@ -3,21 +3,16 @@ package dcc196.trabalho_dcc;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Date;
 
-import dcc196.trabalho_dcc.model.Livro;
-import dcc196.trabalho_dcc.model.Participante;
+import dcc196.trabalho_dcc.model.DBHelper;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -26,6 +21,8 @@ public class MainActivity extends AppCompatActivity {
     private Button btnCadastrarLivro;
     private ListView lvParticipantes;
 
+    private DBHelper dbHelper;
+    private LivroAdapter livroAdapter;
 
     @Override
     protected void onResume() {
@@ -45,11 +42,21 @@ public class MainActivity extends AppCompatActivity {
         btnCadastrarLivro = (Button) findViewById(R.id.btnCadastrarLivro);
         lvParticipantes = (ListView) findViewById(R.id.lvParticipantes);
 
+        livroAdapter = new LivroAdapter(getApplicationContext(), null);
+
         SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
         Date hora;  // Ou qualquer outra forma que tem
         //String dataFormatada = sdf.format(hora);
 
-        ParticipanteHelper p = ParticipanteHelper.getInstance();
+        lvParticipantes.setAdapter(livroAdapter);
+        livroAdapter.atualizar();
+
+        dbHelper.getInstance(getApplicationContext());
+        //livroAdapter.inserirAleatorio();
+
+        livroAdapter.atualizar();
+
+        /*ParticipanteHelper p = ParticipanteHelper.getInstance();
         LivroHelper l = LivroHelper.getInstance();
         if (p != null) {
         //Carregamento de dados
@@ -85,7 +92,7 @@ public class MainActivity extends AppCompatActivity {
             lvParticipantes.setAdapter(adapter);
 
 
-        }
+        }*/
 
         btnCadastrarReserva.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -108,7 +115,7 @@ public class MainActivity extends AppCompatActivity {
         btnCadastrarParticipante.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.d("TAG", String.valueOf(ParticipanteHelper.getInstance().listarParticipantes().size()));
+                //Log.d("TAG", String.valueOf(ParticipanteHelper.getInstance().listarParticipantes().size()));
                 Intent intent = new Intent(MainActivity.this, CadastroParticipante.class);
                 startActivity(intent);
             }
@@ -118,7 +125,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
 
-                Participante p = ParticipanteHelper.getInstance().listarParticipantes().get(position);
+                /*Participante p = ParticipanteHelper.getInstance().listarParticipantes().get(position);
 
                 if (p.getHoraEntrada() == null) {
                     p.setHoraEntrada(Calendar.getInstance().getTime());
@@ -130,7 +137,7 @@ public class MainActivity extends AppCompatActivity {
                     p.setHoraEntrada(null);
                     p.setHoraSaida(null);
                     Toast.makeText(getApplicationContext(), "Horas de entrada e saidas resetadas", Toast.LENGTH_SHORT).show();
-                }
+                }*/
                 return true;
             }
         });
@@ -140,9 +147,9 @@ public class MainActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
 
-                Participante p = ParticipanteHelper.getInstance().listarParticipantes().get(position);
+                //Participante p = ParticipanteHelper.getInstance().listarParticipantes().get(position);
                 Intent intent = new Intent(MainActivity.this, DetalheParticipante.class);
-                intent.putExtra("Participante", p);
+                //intent.putExtra("Participante", p);
                 startActivity(intent);
             }
         });

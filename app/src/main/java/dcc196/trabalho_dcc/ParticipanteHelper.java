@@ -42,8 +42,8 @@ public class ParticipanteHelper {
             Participante p = new Participante();
             p.setNomeCompleto(resultado.getString(0));
             p.setEmail(resultado.getString(1));
-            p.setHoraEntrada(resultado.getString(2));
-            p.setHoraSaida(resultado.getString(3));
+            //p.setHoraEntrada(resultado.getString(2));
+            //p.setHoraSaida(resultado.getString(3));
             participantes.add(p);
         }
         return participantes;

@@ -8,6 +8,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import dcc196.trabalho_dcc.model.DBHelper;
 import dcc196.trabalho_dcc.model.Livro;
 
 public class CadastroLivro extends AppCompatActivity {
@@ -17,7 +18,9 @@ public class CadastroLivro extends AppCompatActivity {
     private EditText campoTitulo;
     private EditText campoEditora;
     private EditText campoAnoPubliicacao;
-    private LivroHelper lh = LivroHelper.getInstance();
+
+    private DBHelper dbHelper;
+    private LivroAdapter livroAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,6 +33,9 @@ public class CadastroLivro extends AppCompatActivity {
         campoEditora = (EditText) findViewById(R.id.txtCampoEditora);
         campoAnoPubliicacao = (EditText) findViewById(R.id.txtCampoAnoPublicacao);
 
+        livroAdapter = new LivroAdapter(getApplicationContext(), null);
+        dbHelper.getInstance(getApplicationContext());
+
         btnCadastrarLivro.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -37,7 +43,10 @@ public class CadastroLivro extends AppCompatActivity {
                 livro.setTitulo(campoTitulo.getText().toString());
                 livro.setEditora(campoEditora.getText().toString());
                 livro.setAnoPlubicacao(campoAnoPubliicacao.getText().toString());
-                lh.criar(livro);
+
+                livroAdapter.inserir(livro);
+        //        lh.criar(livro);
+
                 Toast.makeText(getApplicationContext(), "Livro cadastrado", Toast.LENGTH_SHORT).show();
             }
         });

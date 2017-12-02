@@ -18,6 +18,7 @@ import dcc196.trabalho_dcc.model.Reserva;
 public class DetalheLivro extends AppCompatActivity {
 
     private ListView lvLivros;
+    private LivroAdapter livroAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,21 +26,25 @@ public class DetalheLivro extends AppCompatActivity {
         setContentView(R.layout.activity_detalhe_livro);
 
         lvLivros = (ListView) findViewById(R.id.lvLivros);
+        livroAdapter = new LivroAdapter(getApplicationContext(), null);
 
-        ArrayAdapter<Livro> adapter = new ArrayAdapter<>(
-                this, android.R.layout.simple_list_item_1, LivroHelper.getInstance().listarLivros());
+        lvLivros.setAdapter(livroAdapter);
+        livroAdapter.atualizar();
 
-        lvLivros.setAdapter(adapter);
+        //ArrayAdapter<Livro> adapter = new ArrayAdapter<>(
+        //        this, android.R.layout.simple_list_item_1, LivroHelper.getInstance().listarLivros());
+
+        //lvLivros.setAdapter(adapter);
 
         lvLivros.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Livro livro = LivroHelper.getInstance().listarLivros().get(position);
-                ArrayList<Participante> participantes = (ArrayList<Participante>) ReservaHelper.getInstance().reservaramLivro(livro);
+        //        Livro livro = LivroHelper.getInstance().listarLivros().get(position);
+        //        ArrayList<Participante> participantes = (ArrayList<Participante>) ReservaHelper.getInstance().reservaramLivro(livro);
 
                 Intent intent = new Intent(DetalheLivro.this, DadosLivro.class);
-                intent.putExtra("Livro", livro);
-                intent.putExtra("Participantes", participantes);
+        //      intent.putExtra("Livro", livro);
+        //        intent.putExtra("Participantes", participantes);
                 startActivity(intent);
             }
         });
