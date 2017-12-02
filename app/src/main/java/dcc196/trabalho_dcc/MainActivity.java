@@ -22,7 +22,7 @@ public class MainActivity extends AppCompatActivity {
     private ListView lvParticipantes;
 
     private DBHelper dbHelper;
-    private LivroAdapter livroAdapter;
+    private ParticipanteAdapter participanteAdapter;
 
     @Override
     protected void onResume() {
@@ -42,19 +42,19 @@ public class MainActivity extends AppCompatActivity {
         btnCadastrarLivro = (Button) findViewById(R.id.btnCadastrarLivro);
         lvParticipantes = (ListView) findViewById(R.id.lvParticipantes);
 
-        livroAdapter = new LivroAdapter(getApplicationContext(), null);
+        participanteAdapter = new ParticipanteAdapter(getApplicationContext(), null);
 
         SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
         Date hora;  // Ou qualquer outra forma que tem
         //String dataFormatada = sdf.format(hora);
 
-        lvParticipantes.setAdapter(livroAdapter);
-        livroAdapter.atualizar();
+        lvParticipantes.setAdapter(participanteAdapter);
+        participanteAdapter.atualizar();
 
         dbHelper.getInstance(getApplicationContext());
         //livroAdapter.inserirAleatorio();
 
-        livroAdapter.atualizar();
+        participanteAdapter.atualizar();
 
         /*ParticipanteHelper p = ParticipanteHelper.getInstance();
         LivroHelper l = LivroHelper.getInstance();

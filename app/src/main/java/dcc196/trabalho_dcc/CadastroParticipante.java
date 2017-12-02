@@ -7,6 +7,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import dcc196.trabalho_dcc.model.DBHelper;
 import dcc196.trabalho_dcc.model.Participante;
 
 public class CadastroParticipante extends AppCompatActivity {
@@ -14,7 +15,8 @@ public class CadastroParticipante extends AppCompatActivity {
     private EditText edtNomeParticipante;
     private EditText edtEmailParticipante;
     private Button btnSalvarParticipante;
-    //private ParticipanteHelper ph = ParticipanteHelper.getInstance();
+    private DBHelper dbHelper;
+    private ParticipanteAdapter participanteAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,13 +27,15 @@ public class CadastroParticipante extends AppCompatActivity {
         edtEmailParticipante = (EditText) findViewById(R.id.edtEmailParticipante);
         btnSalvarParticipante = (Button) findViewById(R.id.btnSalvarParticipante);
 
+        participanteAdapter = new ParticipanteAdapter(getApplicationContext(),null);
+
         btnSalvarParticipante.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Participante participante = new Participante();
                 participante.setNomeCompleto(edtNomeParticipante.getText().toString());
                 participante.setEmail(edtEmailParticipante.getText().toString());
-        //        ph.criar(participante);
+                participanteAdapter.inserir(participante);
                 Toast.makeText(getApplicationContext(), "Participante cadastrado", Toast.LENGTH_SHORT).show();
             }
         });
