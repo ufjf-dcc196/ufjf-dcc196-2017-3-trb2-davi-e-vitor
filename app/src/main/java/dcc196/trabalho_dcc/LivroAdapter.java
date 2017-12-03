@@ -11,7 +11,6 @@ import android.view.ViewGroup;
 import android.widget.CursorAdapter;
 import android.widget.TextView;
 
-import java.util.Random;
 
 import dcc196.trabalho_dcc.model.DBHelper;
 import dcc196.trabalho_dcc.model.Livro;
@@ -49,7 +48,6 @@ public class LivroAdapter extends CursorAdapter {
             String[] visao = {
                     DatabaseContract.Livro._ID,
                     DatabaseContract.Livro.COLUMN_NAME_TITULO,
-                    //DatabaseContract.Reserva.COLUMN_NAME_IDLIVRO,
             };
             Cursor c = db.query(DatabaseContract.Livro.TABLE_NAME, visao, null, null, null, null, null);
             this.changeCursor(c);
@@ -62,7 +60,6 @@ public class LivroAdapter extends CursorAdapter {
 
     public void inserir(Livro livro){
         try {
-            Random rnd = new Random();
             SQLiteDatabase db = dbHelper.getWritableDatabase();
             ContentValues values = new ContentValues();
 

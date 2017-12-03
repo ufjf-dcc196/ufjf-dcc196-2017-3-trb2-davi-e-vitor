@@ -15,7 +15,6 @@ public class CadastroParticipante extends AppCompatActivity {
     private EditText edtNomeParticipante;
     private EditText edtEmailParticipante;
     private Button btnSalvarParticipante;
-    private DBHelper dbHelper;
     private ParticipanteAdapter participanteAdapter;
 
     @Override

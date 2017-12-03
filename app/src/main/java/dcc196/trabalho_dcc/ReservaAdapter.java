@@ -55,7 +55,6 @@ public class ReservaAdapter extends CursorAdapter{
 
     public void inserir(Long idParticipante, Long idLivro){
         try {
-            Random rnd = new Random();
             SQLiteDatabase db = databaseHelper.getWritableDatabase();
             ContentValues values = new ContentValues();
             values.put(DatabaseContract.Reserva.COLUMN_NAME_IDPARTICIPANTE, idParticipante);

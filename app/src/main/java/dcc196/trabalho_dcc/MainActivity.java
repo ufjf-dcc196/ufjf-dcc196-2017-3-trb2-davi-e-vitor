@@ -52,18 +52,10 @@ public class MainActivity extends AppCompatActivity {
         lvParticipantes = (ListView) findViewById(R.id.lvParticipantes);
 
         participanteAdapter = new ParticipanteAdapter(getApplicationContext(), null);
-
-        SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
-        Date hora;  // Ou qualquer outra forma que tem
-        //String dataFormatada = sdf.format(hora);
-
         lvParticipantes.setAdapter(participanteAdapter);
         participanteAdapter.atualizar();
 
         dbHelper.getInstance(getApplicationContext());
-        //livroAdapter.inserirAleatorio();
-
-        participanteAdapter.atualizar();
 
 
         btnCadastrarReserva.setOnClickListener(new View.OnClickListener() {

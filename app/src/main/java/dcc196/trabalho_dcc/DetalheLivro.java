@@ -31,10 +31,6 @@ public class DetalheLivro extends AppCompatActivity {
         lvLivros.setAdapter(livroAdapter);
         livroAdapter.atualizar();
 
-        //ArrayAdapter<Livro> adapter = new ArrayAdapter<>(
-        //        this, android.R.layout.simple_list_item_1, LivroHelper.getInstance().listarLivros());
-
-        //lvLivros.setAdapter(adapter);
 
         lvLivros.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
