@@ -44,11 +44,7 @@ public class ReservaAdapter extends CursorAdapter{
                     DatabaseContract.Reserva.COLUMN_NAME_IDPARTICIPANTE,
                     DatabaseContract.Reserva.COLUMN_NAME_IDLIVRO,
             };
-            String selecao = DatabaseContract.Reserva.COLUMN_NAME_IDPARTICIPANTE + " > ?";
-            String[] args = {"0"};
-            String sort = DatabaseContract.Reserva.COLUMN_NAME_IDPARTICIPANTE + " DESC";
-            //db.query(tabela, colunas, selecao, args, group, havinf, order);
-            Cursor c = db.query(DatabaseContract.Reserva.TABLE_NAME, visao, selecao, args, null, null, sort);
+            Cursor c = db.query(DatabaseContract.Reserva.TABLE_NAME, visao, null, null, null, null, null);
             this.changeCursor(c);
 
         } catch (Exception e) {
@@ -57,15 +53,14 @@ public class ReservaAdapter extends CursorAdapter{
         }
     }
 
-    public void inserirAleatorio(){
+    public void inserir(Long idParticipante, Long idLivro){
         try {
             Random rnd = new Random();
             SQLiteDatabase db = databaseHelper.getWritableDatabase();
             ContentValues values = new ContentValues();
-            values.put(DatabaseContract.Reserva.COLUMN_NAME_IDPARTICIPANTE, rnd.nextInt(50));
-            values.put(DatabaseContract.Reserva.COLUMN_NAME_IDLIVRO, rnd.nextInt(100));
+            values.put(DatabaseContract.Reserva.COLUMN_NAME_IDPARTICIPANTE, idParticipante);
+            values.put(DatabaseContract.Reserva.COLUMN_NAME_IDLIVRO, idLivro);
             long id = db.insert(DatabaseContract.Reserva.TABLE_NAME, null, values);
-            atualizar();
         } catch (Exception e) {
             Log.e("Reserva", e.getLocalizedMessage());
             Log.e("Reserva", e.getStackTrace().toString());

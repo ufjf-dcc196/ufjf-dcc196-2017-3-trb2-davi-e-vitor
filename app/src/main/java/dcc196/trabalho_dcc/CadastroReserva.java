@@ -1,5 +1,7 @@
 package dcc196.trabalho_dcc;
 
+import android.content.ContentValues;
+import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -11,6 +13,7 @@ import android.widget.Toast;
 
 import java.util.List;
 
+import dcc196.trabalho_dcc.model.DBHelper;
 import dcc196.trabalho_dcc.model.Livro;
 import dcc196.trabalho_dcc.model.Participante;
 import dcc196.trabalho_dcc.model.Reserva;
@@ -21,12 +24,14 @@ public class CadastroReserva extends AppCompatActivity {
     private Button btnReservarLivro;
     private AutoCompleteTextView autoCompleteParticipantes;
     private AutoCompleteTextView autoCompleteLivros;
-    private List<Participante> participantes;
 
     LivroAdapter livroAdapter;
+    ParticipanteAdapter participanteAdapter;
 
-    private Participante p;
-    private Livro l;
+    private Long idParticipante;
+    private Long idLivro;
+
+    private DBHelper dbHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,15 +42,11 @@ public class CadastroReserva extends AppCompatActivity {
         autoCompleteParticipantes = (AutoCompleteTextView) findViewById(R.id.autoCompleteParticipantes);
         autoCompleteLivros = (AutoCompleteTextView) findViewById(R.id.autoCompleteLivros);
 
-        final ArrayAdapter<Participante> adpParticipante = new ArrayAdapter<>(this,
-                android.R.layout.simple_dropdown_item_1line, participantes);
-        autoCompleteParticipantes.setAdapter(adpParticipante);
-
+        participanteAdapter = new ParticipanteAdapter(getApplicationContext(), null);
         livroAdapter = new LivroAdapter(getApplicationContext(), null);
-        //List<Livro> livros = lh.listarLivros();
 
-        //final ArrayAdapter<Livro> adpLivro = new ArrayAdapter<>(this,
-        //        android.R.layout.simple_dropdown_item_1line, livros);
+        autoCompleteParticipantes.setAdapter(participanteAdapter);
+        participanteAdapter.atualizar();
 
         autoCompleteLivros.setAdapter(livroAdapter);
         livroAdapter.atualizar();
@@ -53,25 +54,31 @@ public class CadastroReserva extends AppCompatActivity {
         autoCompleteParticipantes.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                //p = adpParticipante.getItem(position);
+                Toast.makeText(getApplicationContext(), Long.toString(id), Toast.LENGTH_SHORT).show();
+                idParticipante = id;
             }
         });
 
         autoCompleteLivros.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                //l = adpLivro.getItem(position);
+                Toast.makeText(getApplicationContext(), Long.toString(id), Toast.LENGTH_SHORT).show();
+                idLivro = id;
             }
         });
 
         btnReservarLivro.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (p != null && l != null) {
-                    Reserva r = new Reserva();
-                    r.setParticipante(p);
-                    r.setLivro(l);
-                    ReservaHelper.getInstance().criar(r);
+                if (idParticipante != null && idLivro != null) {
+                    dbHelper = DBHelper.getInstance(getApplicationContext());
+                    SQLiteDatabase db = dbHelper.getWritableDatabase();
+
+                    ContentValues values = new ContentValues();
+                    values.put(DatabaseContract.Reserva.COLUMN_NAME_IDPARTICIPANTE, idParticipante);
+                    values.put(DatabaseContract.Reserva.COLUMN_NAME_IDLIVRO, idLivro);
+                    long id = db.insert(DatabaseContract.Reserva.TABLE_NAME, null, values);
+
                     Toast.makeText(getApplicationContext(), "Reserva cadastrada", Toast.LENGTH_SHORT).show();
                 }
             }
