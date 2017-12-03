@@ -146,10 +146,8 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-
-                //Participante p = ParticipanteHelper.getInstance().listarParticipantes().get(position);
                 Intent intent = new Intent(MainActivity.this, DetalheParticipante.class);
-                //intent.putExtra("Participante", p);
+                intent.putExtra("ID_PARTICIPANTE", id);
                 startActivity(intent);
             }
         });
