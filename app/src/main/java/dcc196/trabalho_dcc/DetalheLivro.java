@@ -39,12 +39,8 @@ public class DetalheLivro extends AppCompatActivity {
         lvLivros.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        //        Livro livro = LivroHelper.getInstance().listarLivros().get(position);
-        //        ArrayList<Participante> participantes = (ArrayList<Participante>) ReservaHelper.getInstance().reservaramLivro(livro);
-
                 Intent intent = new Intent(DetalheLivro.this, DadosLivro.class);
-        //      intent.putExtra("Livro", livro);
-        //        intent.putExtra("Participantes", participantes);
+                intent.putExtra("Id_Livro", id);
                 startActivity(intent);
             }
         });
