@@ -30,6 +30,7 @@ public class DetalheParticipante extends AppCompatActivity {
         Intent i = getIntent();
         long id = i.getLongExtra("ID_PARTICIPANTE",0);
 
+        dbHelper = DBHelper.getInstance(getApplicationContext());
         SQLiteDatabase db = dbHelper.getReadableDatabase();
 
         String[] visao = {
@@ -43,6 +44,8 @@ public class DetalheParticipante extends AppCompatActivity {
         String selecao = DatabaseContract.Participante._ID + " = ?";
         String[] args = {Long.toString(id)};
         Cursor c = db.query(DatabaseContract.Participante.TABLE_NAME, visao, selecao, args, null, null, null);
+
+        c.moveToFirst();
 
         String nome = c.getString(c.getColumnIndexOrThrow(DatabaseContract.Participante.COLUMN_NAME_NOME));
         String email = c.getString(c.getColumnIndexOrThrow(DatabaseContract.Participante.COLUMN_NAME_EMAIL));

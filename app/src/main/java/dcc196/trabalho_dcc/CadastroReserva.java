@@ -46,9 +46,11 @@ public class CadastroReserva extends AppCompatActivity {
         livroAdapter = new LivroAdapter(getApplicationContext(), null);
 
         autoCompleteParticipantes.setAdapter(participanteAdapter);
+        autoCompleteParticipantes.setHint("Participante");
         participanteAdapter.atualizar();
 
         autoCompleteLivros.setAdapter(livroAdapter);
+        autoCompleteLivros.setHint("Livros");
         livroAdapter.atualizar();
 
         autoCompleteParticipantes.setOnItemClickListener(new AdapterView.OnItemClickListener() {

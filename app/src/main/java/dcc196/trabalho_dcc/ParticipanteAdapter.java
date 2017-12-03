@@ -57,6 +57,20 @@ public class ParticipanteAdapter extends CursorAdapter {
         }
     }
 
+    public void atualizar(String rawQuery){
+        try {
+            SQLiteDatabase db = dbHelper.getReadableDatabase();
+            Log.e("SQL", rawQuery);
+            Cursor c = db.rawQuery(rawQuery, null);
+            this.changeCursor(c);
+
+        } catch (Exception e) {
+            Log.e("SQL", rawQuery);
+            Log.e("PARTICIPANTE - rawquery", e.getLocalizedMessage());
+            Log.e("PARTICIPANTE - rawquery", e.getStackTrace().toString());
+        }
+    }
+
     public void inserir(Participante participante){
         try {
 

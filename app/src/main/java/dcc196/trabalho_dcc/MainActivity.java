@@ -1,20 +1,29 @@
 package dcc196.trabalho_dcc;
 
+import android.content.ContentValues;
 import android.content.Intent;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import java.text.SimpleDateFormat;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.Locale;
 
 import dcc196.trabalho_dcc.model.DBHelper;
 
 public class MainActivity extends AppCompatActivity {
+
+    private static final SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss", Locale.US);
 
     private Button btnCadastrarParticipante;
     private Button btnCadastrarReserva;
@@ -56,43 +65,6 @@ public class MainActivity extends AppCompatActivity {
 
         participanteAdapter.atualizar();
 
-        /*ParticipanteHelper p = ParticipanteHelper.getInstance();
-        LivroHelper l = LivroHelper.getInstance();
-        if (p != null) {
-        //Carregamento de dados
-            Participante p1 = new Participante();
-            p1.setNomeCompleto("Davi de Almeida");
-            p1.setEmail("davi.c@gmail.com");
-            p.criar(p1);
-
-            Participante p2 = new Participante();
-            p2.setNomeCompleto("Ricardo Tuboly");
-            p2.setEmail("ricardo.c@gmail.com");
-            p.criar(p2);
-
-            if (l != null) {
-                Livro l1 = new Livro();
-                l1.setTitulo("Senhor dos Anéis");
-                l1.setEditora("Almenara");
-                l1.setAnoPlubicacao("2000");
-                l.criar(l1);
-
-                Livro l2 = new Livro();
-                l2.setTitulo("Star Wars");
-                l2.setEditora("Yoda");
-                l2.setAnoPlubicacao("1990");
-                l.criar(l2);
-            }
-
-
-
-            ArrayAdapter<Participante> adapter = new ArrayAdapter<>(
-                    this, android.R.layout.simple_list_item_1, ParticipanteHelper.getInstance().listarParticipantes());
-
-            lvParticipantes.setAdapter(adapter);
-
-
-        }*/
 
         btnCadastrarReserva.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -115,7 +87,6 @@ public class MainActivity extends AppCompatActivity {
         btnCadastrarParticipante.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //Log.d("TAG", String.valueOf(ParticipanteHelper.getInstance().listarParticipantes().size()));
                 Intent intent = new Intent(MainActivity.this, CadastroParticipante.class);
                 startActivity(intent);
             }
@@ -124,20 +95,32 @@ public class MainActivity extends AppCompatActivity {
         lvParticipantes.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+                dbHelper = DBHelper.getInstance(getApplicationContext());
+                SQLiteDatabase db = dbHelper.getWritableDatabase();
 
-                /*Participante p = ParticipanteHelper.getInstance().listarParticipantes().get(position);
+                String [] args = {Long.toString(id)};
+                Cursor c = db.query(DatabaseContract.Participante.TABLE_NAME, null, Long.toString(id), null, null, null, null);
+                c.moveToFirst();
+                String horario_entrada = c.getString(c.getColumnIndexOrThrow(DatabaseContract.Participante.COLUMN_NAME_HORA_ENTRADA));
+                String horario_saida = c.getString(c.getColumnIndexOrThrow(DatabaseContract.Participante.COLUMN_NAME_HORA_SAIDA));
 
-                if (p.getHoraEntrada() == null) {
-                    p.setHoraEntrada(Calendar.getInstance().getTime());
+                String horaAtual = dateFormat.format(Calendar.getInstance().getTime());
+                ContentValues values = new ContentValues();
+                if (horario_entrada == null) {
+                    values.put("horaentrada", horaAtual);
+                    db.update(DatabaseContract.Participante.TABLE_NAME, values, "_id ="+id, null);
                     Toast.makeText(getApplicationContext(), "HoraEntrada atualizada", Toast.LENGTH_SHORT).show();
-                } else if (p.getHoraSaida() == null) {
-                    p.setHoraSaida(Calendar.getInstance().getTime());
+                } else if (horario_saida == null) {
+                    values.put("horasaida", horaAtual);
+                    db.update(DatabaseContract.Participante.TABLE_NAME, values, "_id ="+id, null);
                     Toast.makeText(getApplicationContext(), "HoraSaida atualizada", Toast.LENGTH_SHORT).show();
                 } else {
-                    p.setHoraEntrada(null);
-                    p.setHoraSaida(null);
+                    horaAtual = null;
+                    values.put("horaentrada", horaAtual);
+                    values.put("horasaida", horaAtual);
+                    db.update(DatabaseContract.Participante.TABLE_NAME, values, "_id="+id, null);
                     Toast.makeText(getApplicationContext(), "Horas de entrada e saidas resetadas", Toast.LENGTH_SHORT).show();
-                }*/
+                }
                 return true;
             }
         });
@@ -145,7 +128,6 @@ public class MainActivity extends AppCompatActivity {
         lvParticipantes.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
                 Intent intent = new Intent(MainActivity.this, DetalheParticipante.class);
                 intent.putExtra("ID_PARTICIPANTE", id);
                 startActivity(intent);
